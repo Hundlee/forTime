@@ -1,7 +1,10 @@
+import { Sidebar } from "lucide-react";
+import Header from "./_component/header";
+
 export default function Home() {
     return (
         <div>
-            <h1>Olá</h1>
+            <Header />
         </div>
     );
 }
