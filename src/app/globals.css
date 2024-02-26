@@ -4,19 +4,19 @@
 
 @layer base {
     .dark {
-        --background: 219 17% 97%;
+        --background: 219 57% 95%;
         --foreground: 225 9% 9%;
 
-        --card: 278 97% 19%;
+        --card: 261 90% 41%;
         --card-foreground: 210 40% 98%;
 
-        --popover: 219 17% 97%;
+        --popover: 261 90% 41%;
         --popover-foreground: 228 9% 11%;
 
-        --primary: 278 97% 19%;
+        --primary: 261 90% 41%;
         --primary-foreground: 0 0% 100%;
 
-        --secondary: 278 97% 19%;
+        --secondary: 278 18% 85%;
         --secondary-foreground: 210 40% 98%;
 
         --muted: 219 17% 97%;
@@ -43,4 +43,26 @@
     body {
         @apply bg-background text-foreground antialiased h-screen flex flex-col;
     }
+}
+
+.swiper-pagination-bullet {
+    width: 10px; /* largura */
+    height: 10px; /* altura */
+    background-color: #ccc; /* Cor das bolinhas não ativadas */
+    opacity: 0.5; /* Opacidade das bolinhas não ativadas */
+    transition: all 0.3s ease; /* Transição suave */
+}
+
+.swiper-pagination-bullet.swiper-pagination-bullet-active {
+    background-color: #4321d8; /* Cor da bolinha ativada */
+}
+
+.swiper-pagination-bullet:not(.swiper-pagination-bullet-active) {
+    transform: scale(0.8); /* Reduz o tamanho das bolinhas não ativadas */
+}
+.swiper-slide-next {
+    opacity: 0.2;
+}
+.swiper-slide-prev {
+    opacity: 0.2;
 }
