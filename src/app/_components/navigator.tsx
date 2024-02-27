@@ -1,10 +1,7 @@
 import {
     Bell,
     Calendar,
-    CalendarCheckIcon,
-    Glasses,
     Home,
-    HomeIcon,
     Search,
 } from "lucide-react";
 import { Button } from "./ui/button";
@@ -15,22 +12,22 @@ const Navigator = () => {
             <ul className="w-full flex justify-between">
                 <li className="">
                     <Button variant="link">
-                        <Home width={30} height={30} />
+                        <Home width={25} height={25} />
                     </Button>
                 </li>
                 <li>
                     <Button variant="link" className="text-slate-300">
-                        <Calendar width={30} height={30} />
+                        <Calendar width={25} height={25} />
                     </Button>
                 </li>
                 <li>
                     <Button variant="link" className="text-slate-300">
-                        <Bell width={30} height={30} />
+                        <Bell width={25} height={25} />
                     </Button>
                 </li>
                 <li>
                     <Button variant="link" className="text-slate-300">
-                        <Search width={30} height={30} />
+                        <Search width={25} height={25} />
                     </Button>
                 </li>
             </ul>
