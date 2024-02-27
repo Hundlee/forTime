@@ -1,6 +1,8 @@
 import Header from "./_component/header";
 import { Button } from "../_components/ui/button";
 import Carousel from "./_component/carouselComponent";
+import Progress from "./_component/progress";
+import CardProgress from "./_component/progress";
 
 export default function Home() {
     return (
@@ -29,6 +31,14 @@ export default function Home() {
             <section className="mt-5 overflow-x-auto [&::-webkit-scrollbar]:hidden flex">
                 <Carousel />
             </section>
+
+            <div className="px-5 mt-5 w-full">
+                <h1 className="text-xl font-semibold">Progress</h1>
+
+                <div className="overflow-x-auto [&::-webkit-scrollbar]:hidden flex gap-3">
+                    <CardProgress />
+                </div>
+            </div>
         </main>
     );
 }
