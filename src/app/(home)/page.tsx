@@ -2,6 +2,7 @@ import Header from "./_component/header";
 import { Button } from "../_components/ui/button";
 import Carousel from "./_component/carouselComponent";
 import Progress from "./_component/progress";
+import Navigator from "../_components/navigator";
 
 export default function Home() {
     return (
@@ -32,6 +33,8 @@ export default function Home() {
             </section>
 
             <Progress />
+
+            <Navigator />
         </main>
     );
 }
