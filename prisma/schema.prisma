@@ -19,28 +19,34 @@ model User {
   email         String?      @unique
   emailVerified DateTime?
   image         String?
+  projects      Project[]
+  tasks         Task[]
   CreateTask    CreateTask[]
 }
 
 model Project {
-  id         String       @id @default(cuid())
-  name       String
-  tasks      Task[]
+  id          String       @id @default(uuid())
+  name        String
+  tasks       Task[]
   CreateTasks CreateTask[]
+  User        User?        @relation(fields: [userId], references: [id])
+  userId      String?
 }
 
 model Task {
-  id          String       @id @default(cuid())
-  name        String
-  description String
-  projectId   String
-  project     Project      @relation(fields: [projectId], references: [id])
-  date        DateTime
+  id           String       @id @default(uuid())
+  name         String
+  description  String
+  projectId    String
+  project      Project      @relation(fields: [projectId], references: [id])
+  date         DateTime
   createdTasks CreateTask[]
+  User         User?        @relation(fields: [userId], references: [id])
+  userId       String?
 }
 
 model CreateTask {
-  id          String    @id @default(cuid())
+  id          String    @id @default(uuid())
   name        String
   description String
   userId      String
@@ -57,7 +63,7 @@ model CreateTask {
 }
 
 model Category {
-  id         String       @id @default(cuid())
+  id         String       @id @default(uuid())
   name       String       @unique
   CreateTask CreateTask[]
 }
