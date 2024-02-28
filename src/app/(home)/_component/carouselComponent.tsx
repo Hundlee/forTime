@@ -1,13 +1,5 @@
-import { Pagination } from "swiper/modules";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { register } from "swiper/element/bundle";
-import CardProject from "./cardProject";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import "swiper/css/scrollbar";
 import { db } from "@/app/_lib/prisma";
-register();
+import CardProject from "./cardProject";
 
 const Carousel = async () => {
     const projects = await db.project.findMany({});
