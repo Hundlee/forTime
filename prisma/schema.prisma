@@ -27,6 +27,7 @@ model User {
 model Project {
   id          String       @id @default(uuid())
   name        String
+  description String
   tasks       Task[]
   CreateTasks CreateTask[]
   User        User?        @relation(fields: [userId], references: [id])
