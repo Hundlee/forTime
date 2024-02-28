@@ -3,8 +3,12 @@ import { Button } from "../_components/ui/button";
 import Carousel from "./_component/carouselComponent";
 import Progress from "./_component/progress";
 import Navigator from "../_components/navigator";
+import { db } from "../_lib/prisma";
+import CarouselContainer from "./_component/carouselComponent";
 
-export default function Home() {
+export default async function Home() {
+    const projects = await db.project.findMany({});
+
     return (
         <main>
             <Header />
@@ -28,12 +32,11 @@ export default function Home() {
                     Note
                 </Button>
             </div>
-            <section className="mt-5 overflow-x-auto [&::-webkit-scrollbar]:hidden flex">
-                <Carousel />
+            <section className="overflow-x-auto [&::-webkit-scrollbar]:hidden flex">
+                <CarouselContainer />
             </section>
 
             <Progress />
-
             <Navigator />
         </main>
     );
