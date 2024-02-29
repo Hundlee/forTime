@@ -1,14 +1,9 @@
-import {
-    Bell,
-    Calendar,
-    Home,
-    Search,
-} from "lucide-react";
+import { Bell, Calendar, Home, Search } from "lucide-react";
 import { Button } from "./ui/button";
 
 const Navigator = () => {
     return (
-        <footer className="w-full flex items-center justify-center fixed bottom-0 pb-5 px-2">
+        <footer className="w-full flex items-center justify-center fixed bottom-0 py-5 px-2 bg-background">
             <ul className="w-full flex justify-between">
                 <li className="">
                     <Button variant="link">
