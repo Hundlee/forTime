@@ -1,4 +1,7 @@
+import Navigator from "@/app/_components/navigator";
 import { db } from "@/app/_lib/prisma";
+import Header from "../_components/header";
+import Task from "../_components/task";
 
 interface ProjectDetailsPageProps {
     params: {
@@ -23,7 +26,13 @@ const ProjectDetailsPage = async ({ params }: ProjectDetailsPageProps) => {
         return null;
     }
 
-    return <h1>{project.name}</h1>;
+    return (
+        <div>
+            <Header project={project} />
+            <Task />
+            <Navigator />
+        </div>
+    );
 };
 
 export default ProjectDetailsPage;
