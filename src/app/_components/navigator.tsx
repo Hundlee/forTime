@@ -3,7 +3,7 @@ import { Button } from "./ui/button";
 
 const Navigator = () => {
     return (
-        <footer className="w-full flex items-center justify-center fixed bottom-0 py-5 px-2 bg-background">
+        <footer className="w-full flex items-center justify-center fixed bottom-0 py-3 px-2 bg-background">
             <ul className="w-full flex justify-between">
                 <li className="">
                     <Button variant="link">
