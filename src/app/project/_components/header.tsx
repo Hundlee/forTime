@@ -16,6 +16,10 @@ const Header = ({ project }: HeaderProps) => {
         router.push("/");
     };
 
+    const handleNewTaskClick = () => {
+        router.push(`/project/${project.id}/newtask`);
+    };
+
     return (
         <header className="bg-white shadow-xl  shadow-slate-300 rounded-b-3xl flex flex-col">
             <div className="flex justify-between items-center p-6">
@@ -30,7 +34,10 @@ const Header = ({ project }: HeaderProps) => {
 
             <div className="flex p-6 justify-between items-center">
                 <h1 className="text-3xl font-bold">Oct, 2020</h1>
-                <Button className="rounded-2xl w-24 h-12 shadow-xl">
+                <Button
+                    className="rounded-2xl w-24 h-12 shadow-xl"
+                    onClick={handleNewTaskClick}
+                >
                     + Add Task
                 </Button>
             </div>
