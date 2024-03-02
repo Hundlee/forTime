@@ -14,7 +14,7 @@ interface TaskItemProps {
 const TaskItem = () => {
     return (
         <div className="w-full">
-            <Card className="bg-white border-none pt-6 rounded-3xl w-[87vw]">
+            <Card className="bg-white border-none pt-6 rounded-3xl w-[87vw] shadow-md">
                 <CardContent className="flex justify-between items-center">
                     <div className="flex">
                         <div className="w-12 h-12 bg-card flex items-center justify-center rounded-full">
