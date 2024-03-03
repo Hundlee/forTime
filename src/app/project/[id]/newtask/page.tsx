@@ -43,9 +43,11 @@ const NewTaskPage = ({ project, task }: newTaskProps) => {
     const [startTime, setStartTime] = useState<string | undefined>();
     const [endTime, setEndTime] = useState<string | undefined>();
     const [description, setDescription] = useState<string | undefined>();
-    const [category, setCategory] = useState<CategoryProps[]>();
+    const [category, setCategory] = useState<string | any>();
     const [submitIsLoading, setSubmitIsLoading] = useState(false);
-    const [selectedCategory, setSelectedCategory] = useState(null);
+    const [selectedCategory, setSelectedCategory] = useState<string | null>(
+        null
+    );
 
     useEffect(() => {
         const AvaliableCategorys = async () => {
@@ -59,7 +61,11 @@ const NewTaskPage = ({ project, task }: newTaskProps) => {
         };
 
         AvaliableCategorys();
-    }, []);
+    }, [selectedCategory]);
+
+    const handleSelectCategoryClick = (categoryId: string) => {
+        setSelectedCategory(categoryId);
+    };
 
     const FormSchema = z.object({
         title: z.string().min(2, {
@@ -86,6 +92,7 @@ const NewTaskPage = ({ project, task }: newTaskProps) => {
         console.log("Start Time:", startTime);
         console.log("End Time:", endTime);
         console.log("Description:", description);
+        console.log("Description:", selectedCategory);
     }
 
     return (
@@ -262,20 +269,38 @@ const NewTaskPage = ({ project, task }: newTaskProps) => {
                                         Category
                                     </h1>
 
-                                    <div className="w-full">
-                                        {category?.map((category) => (
-                                            <Button
+                                    <div className="w-full flex-wrap flex gap-3 pt-5">
+                                        {category?.map((category: any) => (
+                                            <div
                                                 key={category.id}
-                                                className="p-2 "
+                                                className={`py-2 px-3 bg-primary rounded-xl w-fit ${
+                                                    selectedCategory ===
+                                                    category.id
+                                                        ? "bg-blue-500"
+                                                        : ""
+                                                }`}
+                                                onClick={() =>
+                                                    handleSelectCategoryClick(
+                                                        category.id
+                                                    )
+                                                }
                                             >
-                                                <h1>{category.name}</h1>
-                                            </Button>
+                                                <h1 className="text-white font-semibold">
+                                                    {category.name}
+                                                </h1>
+                                            </div>
                                         ))}
                                     </div>
                                 </div>
+                                <div className="py-10 px-6 bg-white">
+                                    <Button
+                                        type="submit"
+                                        className="w-full text-2xl p-8 rounded-full"
+                                    >
+                                        Create Task
+                                    </Button>
+                                </div>
                             </div>
-
-                            {/* <Button type="submit">Submit</Button> */}
                         </form>
                     </Form>
                 </div>
