@@ -1,9 +1,9 @@
 "use client";
 
-import { Project, Task } from "@prisma/client";
+import { Category, Project, Task } from "@prisma/client";
 import { CalendarIcon, MoveLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { format } from "date-fns";
 import { useForm } from "react-hook-form";
@@ -11,7 +11,6 @@ import { z } from "zod";
 import {
     Form,
     FormControl,
-    FormDescription,
     FormField,
     FormItem,
     FormLabel,
@@ -26,6 +25,7 @@ import { Button } from "@/app/_components/ui/button";
 import { Calendar } from "@/app/_components/ui/calendar";
 import { cn } from "@/app/_lib/utils";
 import { Input } from "@/app/_components/ui/input";
+import getCategorys from "./_actions/get-categorys";
 
 interface newTaskProps {
     project: Project;
@@ -43,7 +43,23 @@ const NewTaskPage = ({ project, task }: newTaskProps) => {
     const [startTime, setStartTime] = useState<string | undefined>();
     const [endTime, setEndTime] = useState<string | undefined>();
     const [description, setDescription] = useState<string | undefined>();
+    const [category, setCategory] = useState<CategoryProps[]>();
     const [submitIsLoading, setSubmitIsLoading] = useState(false);
+    const [selectedCategory, setSelectedCategory] = useState(null);
+
+    useEffect(() => {
+        const AvaliableCategorys = async () => {
+            try {
+                const categorys = await getCategorys();
+
+                setCategory(categorys);
+            } catch (error) {
+                console.error("Error fetching categories:", error);
+            }
+        };
+
+        AvaliableCategorys();
+    }, []);
 
     const FormSchema = z.object({
         title: z.string().min(2, {
@@ -245,6 +261,17 @@ const NewTaskPage = ({ project, task }: newTaskProps) => {
                                     <h1 className="text-2xl font-semibold">
                                         Category
                                     </h1>
+
+                                    <div className="w-full">
+                                        {category?.map((category) => (
+                                            <Button
+                                                key={category.id}
+                                                className="p-2 "
+                                            >
+                                                <h1>{category.name}</h1>
+                                            </Button>
+                                        ))}
+                                    </div>
                                 </div>
                             </div>
 
