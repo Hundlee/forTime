@@ -44,25 +44,3 @@
         @apply bg-background text-foreground antialiased h-screen flex flex-col;
     }
 }
-
-.swiper-pagination-bullet {
-    width: 10px; /* largura */
-    height: 10px; /* altura */
-    background-color: #ccc; /* Cor das bolinhas não ativadas */
-    opacity: 0.5; /* Opacidade das bolinhas não ativadas */
-    transition: all 0.3s ease; /* Transição suave */
-}
-
-.swiper-pagination-bullet.swiper-pagination-bullet-active {
-    background-color: #4321d8; /* Cor da bolinha ativada */
-}
-
-.swiper-pagination-bullet:not(.swiper-pagination-bullet-active) {
-    transform: scale(0.8); /* Reduz o tamanho das bolinhas não ativadas */
-}
-.swiper-slide-next {
-    opacity: 0.2;
-}
-.swiper-slide-prev {
-    opacity: 0.2;
-}
