@@ -1,23 +1,21 @@
 "use client";
 
 import { Button } from "@/app/_components/ui/button";
-import { Project } from "@prisma/client";
+import { Project, Task } from "@prisma/client";
 import { MoveLeft, Search } from "lucide-react";
 import { useRouter } from "next/navigation";
+import Addtask from "../[id]/_components/add-task";
 
 interface HeaderProps {
     project: Project;
+    task: Task;
 }
 
-const Header = ({ project }: HeaderProps) => {
+const Header = ({ project, task }: HeaderProps) => {
     const router = useRouter();
 
     const handleBack = () => {
         router.push("/");
-    };
-
-    const handleNewTaskClick = () => {
-        router.push(`/project/${project.id}/newtask`);
     };
 
     return (
@@ -34,12 +32,7 @@ const Header = ({ project }: HeaderProps) => {
 
             <div className="flex p-6 justify-between items-center">
                 <h1 className="text-3xl font-bold">Oct, 2020</h1>
-                <Button
-                    className="rounded-2xl w-24 h-12 shadow-xl"
-                    onClick={handleNewTaskClick}
-                >
-                    + Add Task
-                </Button>
+                <Addtask project={project} task={task} />
             </div>
 
             <div className="flex items-center justify-center mb-5">
