@@ -1,15 +1,20 @@
 import Navigator from "@/app/_components/navigator";
 import { db } from "@/app/_lib/prisma";
 import Header from "../_components/header";
-import Task from "../_components/task";
+import TaskItem from "../_components/task";
+import { Task } from "@prisma/client";
 
 interface ProjectDetailsPageProps {
     params: {
         id?: string;
     };
+    task: Task;
 }
 
-const ProjectDetailsPage = async ({ params }: ProjectDetailsPageProps) => {
+const ProjectDetailsPage = async ({
+    params,
+    task,
+}: ProjectDetailsPageProps) => {
     if (!params.id) {
         // TODO: redirecionar para home page!!
         return null;
@@ -28,8 +33,8 @@ const ProjectDetailsPage = async ({ params }: ProjectDetailsPageProps) => {
 
     return (
         <div>
-            <Header project={project} />
-            <Task />
+            <Header project={project} task={task} />
+            <TaskItem />
             <Navigator />
         </div>
     );
