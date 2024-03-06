@@ -4,12 +4,27 @@ import { Label } from "../_components/ui/label";
 import { Input } from "../_components/ui/input";
 import { Button } from "../_components/ui/button";
 import { useForm } from "react-hook-form";
+import { signIn } from "next-auth/react";
+import { toast } from "../_components/ui/use-toast";
 
 export default function AuthForm() {
     const form = useForm();
 
-    const handleSubmit = form.handleSubmit((data: any) => {
-        console.log(data);
+    const handleSubmit = form.handleSubmit(async (data: any) => {
+        try {
+            await signIn("email", { email: data.email, redirect: false });
+            toast({
+                title: "Check your email",
+                description:
+                    "We sent you a login link. Be sure to check your spam too.",
+            });
+        } catch (error) {
+            toast({
+                title: "ERROR",
+                description:
+                    "An error occurred while sending the login link. Please try again.",
+            });
+        }
     });
 
     return (
