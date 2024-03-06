@@ -1,3 +1,4 @@
+import { Avatar, AvatarFallback } from "@/app/_components/ui/avatar";
 import { Button } from "@/app/_components/ui/button";
 import {
     Sheet,
@@ -7,9 +8,13 @@ import {
     SheetTitle,
     SheetTrigger,
 } from "@/app/_components/ui/sheet";
+import { auth } from "@/app/_services/auth";
 import { User } from "lucide-react";
+import UserInfo from "./user-info";
 
-const Sidebar = () => {
+const Sidebar = async () => {
+    const session = await auth();
+
     return (
         <div>
             <Sheet>
@@ -20,13 +25,9 @@ const Sidebar = () => {
                 </SheetTrigger>
                 <SheetContent>
                     <SheetHeader>
-                        <SheetTitle>Are you absolutely sure?</SheetTitle>
-                        <SheetDescription>
-                            This action cannot be undone. This will permanently
-                            delete your account and remove your data from our
-                            servers.
-                        </SheetDescription>
+                        <SheetTitle className=" text-white">Menu</SheetTitle>
                     </SheetHeader>
+                    <UserInfo user={session?.user} />
                 </SheetContent>
             </Sheet>
         </div>
