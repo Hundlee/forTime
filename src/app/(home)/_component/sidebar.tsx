@@ -11,25 +11,33 @@ import {
 import { auth } from "@/app/_services/auth";
 import { User } from "lucide-react";
 import UserInfo from "./user-info";
+import { useRouter } from "next/navigation";
+import LoginButton from "./loginButton";
 
 const Sidebar = async () => {
     const session = await auth();
 
     return (
         <div>
-            <Sheet>
-                <SheetTrigger asChild>
-                    <Button className="rounded-full h-[55px]">
-                        <User />
-                    </Button>
-                </SheetTrigger>
-                <SheetContent>
-                    <SheetHeader>
-                        <SheetTitle className=" text-white">Menu</SheetTitle>
-                    </SheetHeader>
-                    <UserInfo user={session?.user} />
-                </SheetContent>
-            </Sheet>
+            {session ? (
+                <Sheet>
+                    <SheetTrigger asChild>
+                        <Button className="rounded-full h-[55px]">
+                            <User />
+                        </Button>
+                    </SheetTrigger>
+                    <SheetContent>
+                        <SheetHeader>
+                            <SheetTitle className=" text-white">
+                                Menu
+                            </SheetTitle>
+                        </SheetHeader>
+                        <UserInfo user={session?.user} />
+                    </SheetContent>
+                </Sheet>
+            ) : (
+                <LoginButton />
+            )}
         </div>
     );
 };
