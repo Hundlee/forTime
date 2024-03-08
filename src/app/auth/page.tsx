@@ -6,6 +6,9 @@ import { Button } from "../_components/ui/button";
 import { useForm } from "react-hook-form";
 import { signIn } from "next-auth/react";
 import { toast } from "../_components/ui/use-toast";
+import LoginButton from "../(home)/_component/loginButton";
+import { MoveLeft } from "lucide-react";
+import BackButton from "./_components/backButton";
 
 export default function AuthForm() {
     const form = useForm();
@@ -28,7 +31,10 @@ export default function AuthForm() {
     });
 
     return (
-        <div className="flex items-center justify-center h-screen">
+        <div className="flex items-center justify-center h-screen relative">
+            <div className="absolute top-4 left-4">
+                <BackButton />
+            </div>
             <div className="flex flex-col items-center space-y-4 p-6">
                 <div className="text-center space-y-2">
                     <h1 className="text-3xl font-bold">Login</h1>
