@@ -14,61 +14,45 @@ datasource db {
 }
 
 model User {
-  id            String       @id @default(cuid())
+  id            String    @id @default(cuid())
   name          String?
-  email         String?      @unique
+  email         String?   @unique
   emailVerified DateTime?
   image         String?
   projects      Project[]
   tasks         Task[]
-  CreateTask    CreateTask[]
-  accounts      Account[]
-  sessions      Session[]
+
+  accounts Account[]
+  sessions Session[]
 }
 
 model Project {
-  id          String       @id @default(uuid())
+  id          String @id @default(uuid())
   name        String
   description String
   tasks       Task[]
-  CreateTasks CreateTask[]
-  User        User?        @relation(fields: [userId], references: [id])
-  userId      String?
+
+  user   User?   @relation(fields: [userId], references: [id])
+  userId String?
 }
 
 model Task {
-  id           String       @id @default(uuid())
-  name         String
-  description  String
-  projectId    String
-  project      Project      @relation(fields: [projectId], references: [id])
-  date         DateTime
-  createdTasks CreateTask[]
-  User         User?        @relation(fields: [userId], references: [id])
-  userId       String?
-}
-
-model CreateTask {
-  id          String    @id @default(uuid())
+  id          String   @id @default(uuid())
   name        String
   description String
-  userId      String
-  user        User      @relation(fields: [userId], references: [id])
-  taskId      String
-  task        Task      @relation(fields: [taskId], references: [id])
-  categoryId  String
-  category    Category  @relation(fields: [categoryId], references: [id])
   projectId   String
-  project     Project   @relation(fields: [projectId], references: [id])
+  project     Project  @relation(fields: [projectId], references: [id])
   date        DateTime
-  startTime   DateTime?
-  endTime     DateTime?
+  user        User?    @relation(fields: [userId], references: [id])
+  userId      String?
+  categoryId  String
+  category    Category @relation(fields: [categoryId], references: [id])
 }
 
 model Category {
-  id         String       @id @default(uuid())
-  name       String       @unique
-  CreateTask CreateTask[]
+  id    String @id @default(uuid())
+  name  String @unique
+  tasks Task[]
 }
 
 model Account {
