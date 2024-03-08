@@ -11,7 +11,7 @@ interface TaskItemProps {
     task: Task;
 }
 
-const TaskItem = () => {
+const TaskItem = ({ task }: TaskItemProps) => {
     return (
         <div className="w-full">
             <Card className="bg-white border-none pt-6 rounded-3xl w-[87vw] shadow-md">
@@ -22,7 +22,7 @@ const TaskItem = () => {
                         </div>
                         <div className="pl-4">
                             <CardTitle className="text-black text-lg">
-                                task
+                                {task.name}
                             </CardTitle>
                             <CardDescription>2 Days ago</CardDescription>
                         </div>
