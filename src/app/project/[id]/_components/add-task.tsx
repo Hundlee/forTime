@@ -1,3 +1,5 @@
+"use client";
+
 import { Project, Task } from "@prisma/client";
 import { useEffect, useState } from "react";
 import getCategorys from "../_actions/get-categorys";
@@ -31,10 +33,11 @@ import {
 import { Calendar } from "@/app/_components/ui/calendar";
 import { cn } from "@/app/_lib/utils";
 import { saveTask } from "../_actions/save-task";
+import { useSession } from "next-auth/react";
 
 interface newTaskProps {
     project: Project;
-    task: Task;
+    task?: Task;
 }
 
 const Addtask = ({ project, task }: newTaskProps) => {
@@ -47,6 +50,8 @@ const Addtask = ({ project, task }: newTaskProps) => {
     const [selectedCategory, setSelectedCategory] = useState<string | null>(
         null
     );
+
+    const { data } = useSession();
 
     useEffect(() => {
         const AvaliableCategorys = async () => {
@@ -78,6 +83,7 @@ const Addtask = ({ project, task }: newTaskProps) => {
         startTime: z.string().optional(),
         endTime: z.string().optional(),
         description: z.string().optional(),
+        userId: z.string().optional(),
     });
 
     const formatTime = (
@@ -95,29 +101,23 @@ const Addtask = ({ project, task }: newTaskProps) => {
         },
     });
 
-    const handleNewTaskSubmit = async (data: z.infer<typeof FormSchema>) => {
+    const handleNewTaskSubmit = async (db: z.infer<typeof FormSchema>) => {
         try {
+            if (!data?.user) {
+                return;
+            }
+
             await saveTask({
                 projectId: project.id,
-                taskId: task.id,
-                date: data.dob,
+                date: db.dob,
                 categoryId: selectedCategory || "",
-                name: data.title,
-                startTime: formatTime(startTime) || "",
-                endTime: formatTime(endTime) || "",
-                userId: "",
-                description: description || "",
+                name: db.title,
+                userId: (data.user as any).id,
+                description: db.description || "",
             });
         } catch (error) {
             console.error(error);
         }
-
-        console.log("Title:", data.title);
-        console.log("Date:", data.dob);
-        console.log("Start Time:", formatTime(startTime));
-        console.log("End Time:", endTime);
-        console.log("Description:", description);
-        console.log("categoryId:", selectedCategory);
     };
 
     return (
@@ -135,8 +135,8 @@ const Addtask = ({ project, task }: newTaskProps) => {
                     <div className="">
                         <Form {...form}>
                             <form
-                                onSubmit={form.handleSubmit(
-                                    handleNewTaskSubmit
+                                onSubmit={form.handleSubmit((db) =>
+                                    handleNewTaskSubmit(db)
                                 )}
                                 className="space-y-8"
                             >
