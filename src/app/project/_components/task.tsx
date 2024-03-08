@@ -9,12 +9,12 @@ const Task = async ({ projectId }: any) => {
     });
     return (
         <main className="text-left mt-10 px-6">
-            <h1 className="text-2xl font-semibold">Task</h1>
+            <h1 className="text-2xl font-semibold">Tasks</h1>
 
             <div className="flex flex-col gap-3 mt-5 h-full overflow-hidden">
                 {task &&
                     task.map((item) => (
-                        <div key={item.id}>
+                        <div key={item.id} className="last:mb-5">
                             <TaskItem task={item} />
                         </div>
                     ))}
