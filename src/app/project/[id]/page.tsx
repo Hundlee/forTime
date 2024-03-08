@@ -8,13 +8,9 @@ interface ProjectDetailsPageProps {
     params: {
         id?: string;
     };
-    task?: Task;
 }
 
-const ProjectDetailsPage = async ({
-    params,
-    task,
-}: ProjectDetailsPageProps) => {
+const ProjectDetailsPage = async ({ params }: ProjectDetailsPageProps) => {
     if (!params.id) {
         // TODO: redirecionar para home page!!
         return null;
@@ -33,7 +29,7 @@ const ProjectDetailsPage = async ({
 
     return (
         <div>
-            <Header project={project} task={task} />
+            <Header project={project} />
             <TaskItem projectId={project.id} />
         </div>
     );
