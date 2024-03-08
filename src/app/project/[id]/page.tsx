@@ -35,7 +35,6 @@ const ProjectDetailsPage = async ({
         <div>
             <Header project={project} task={task} />
             <TaskItem projectId={project.id} />
-            <Navigator />
         </div>
     );
 };
