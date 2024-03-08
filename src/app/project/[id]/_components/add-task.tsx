@@ -24,32 +24,33 @@ import {
     FormMessage,
 } from "@/app/_components/ui/form";
 import { Input } from "@/app/_components/ui/input";
-import { CalendarIcon } from "lucide-react";
+import { CalendarIcon, Loader2 } from "lucide-react";
 import {
     Popover,
     PopoverContent,
     PopoverTrigger,
 } from "@/app/_components/ui/popover";
 import { Calendar } from "@/app/_components/ui/calendar";
+import { ptBR } from "date-fns/locale";
 import { cn } from "@/app/_lib/utils";
 import { saveTask } from "../_actions/save-task";
 import { useSession } from "next-auth/react";
+import { toast } from "@/app/_components/ui/use-toast";
+import { Textarea } from "@/app/_components/ui/textarea";
 
 interface newTaskProps {
     project: Project;
-    task?: Task;
 }
 
-const Addtask = ({ project, task }: newTaskProps) => {
+const Addtask = ({ project }: newTaskProps) => {
     const [date, setDate] = useState<Date | undefined>(undefined);
-    const [startTime, setStartTime] = useState<string | Date | undefined>();
-    const [endTime, setEndTime] = useState<string | Date | undefined>();
     const [description, setDescription] = useState<string | undefined>();
     const [category, setCategory] = useState<string | any>();
-    const [submitIsLoading, setSubmitIsLoading] = useState(false);
     const [selectedCategory, setSelectedCategory] = useState<string | null>(
         null
     );
+    const [submitIsLoading, setSubmitIsLoading] = useState(false);
+    const [sheetIsOpen, setSheetIsOpen] = useState(false);
 
     const { data } = useSession();
 
@@ -102,6 +103,8 @@ const Addtask = ({ project, task }: newTaskProps) => {
     });
 
     const handleNewTaskSubmit = async (db: z.infer<typeof FormSchema>) => {
+        setSubmitIsLoading(true);
+
         try {
             if (!data?.user) {
                 return;
@@ -113,16 +116,23 @@ const Addtask = ({ project, task }: newTaskProps) => {
                 categoryId: selectedCategory || "",
                 name: db.title,
                 userId: (data.user as any).id,
-                description: db.description || "",
+                description: description || "",
+            });
+
+            setSheetIsOpen(false);
+            toast({
+                description: "Task created successfully!",
             });
         } catch (error) {
             console.error(error);
+        } finally {
+            setSubmitIsLoading(false);
         }
     };
 
     return (
         <div>
-            <Sheet>
+            <Sheet open={sheetIsOpen} onOpenChange={setSheetIsOpen}>
                 <SheetTrigger asChild>
                     <Button variant="default">+ add task</Button>
                 </SheetTrigger>
@@ -227,13 +237,13 @@ const Addtask = ({ project, task }: newTaskProps) => {
                                             name="description"
                                             render={({ field }) => (
                                                 <FormItem className="">
-                                                    <FormLabel className="text-white font-base text-opacity-40 ">
+                                                    <FormLabel className="text-white font-base  ">
                                                         Description
                                                     </FormLabel>
                                                     <FormControl className="">
-                                                        <Input
-                                                            placeholder="Some text here for the description"
-                                                            className="bg-transparent border-b border-black border-opacity-10 font-semibold text-white text-wrap"
+                                                        <Textarea
+                                                            placeholder="Task description"
+                                                            className="resize-none bg-transparent  border-white border-opacity-70 font-semibold text-white"
                                                             {...field}
                                                             onChange={(e) =>
                                                                 setDescription(
@@ -280,7 +290,15 @@ const Addtask = ({ project, task }: newTaskProps) => {
                                     <Button
                                         type="submit"
                                         className="w-full text-2xl px-8 py-6 rounded-full mt-10"
+                                        disabled={
+                                            !date ||
+                                            !selectedCategory ||
+                                            submitIsLoading
+                                        }
                                     >
+                                        {submitIsLoading && (
+                                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                        )}
                                         Create Task
                                     </Button>
                                 </div>
