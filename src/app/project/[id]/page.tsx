@@ -8,7 +8,7 @@ interface ProjectDetailsPageProps {
     params: {
         id?: string;
     };
-    task: Task;
+    task?: Task;
 }
 
 const ProjectDetailsPage = async ({
@@ -34,7 +34,7 @@ const ProjectDetailsPage = async ({
     return (
         <div>
             <Header project={project} task={task} />
-            <TaskItem />
+            <TaskItem projectId={project.id} />
             <Navigator />
         </div>
     );
