@@ -24,7 +24,7 @@ const CardProject = ({ cardProject }: CardProjectProps) => {
     return (
         <div className="px-5 my-4">
             <Card
-                className="w-[90vw]  rounded-[35px] flex flex-col items-start border-none justify-between shadow-lg"
+                className="w-[90vw] h-[20rem]  rounded-[35px] flex flex-col items-start border-none justify-between shadow-lg overflow-hidden"
                 onClick={handleProjectClick}
             >
                 <CardHeader className="flex flex-row items-center">
@@ -33,8 +33,10 @@ const CardProject = ({ cardProject }: CardProjectProps) => {
                     </div>
                     <h3>{cardProject.name}</h3>
                 </CardHeader>
-                <CardContent>
-                    <h2 className="text-xl py-10">{cardProject.description}</h2>
+                <CardContent className="max-w-full">
+                    <h2 className="text-xl py-10 text-balance">
+                        {cardProject.description}
+                    </h2>
                 </CardContent>
                 <CardFooter>
                     <h3 className="text-sm">October 2020</h3>
