@@ -1,7 +1,11 @@
 import { db } from "@/app/_lib/prisma";
 import TaskItem from "./taskItem";
 
-const Task = async ({ projectId }: any) => {
+interface TaskProps {
+    projectId: string;
+}
+
+const Task = async ({ projectId }: TaskProps) => {
     const task = await db.task.findMany({
         where: {
             projectId: projectId,
