@@ -22,18 +22,7 @@ export default async function Home() {
                 </h1>
                 <h3 className="text-xl text-primary ">Have a nice day!</h3>
             </section>
-            <div className="mt-10 px-5">
-                <Button className="mr-4 rounded-full bg-secondary-foreground font-bold text-black gap-4 shadow-md">
-                    Project{" "}
-                    <span className="border-2 border-primary rounded-full"></span>
-                </Button>
-                <Button className="mr-4 rounded-full bg-secondary-foreground text-secondary font-bold gap-4">
-                    tasks
-                </Button>
-                <Button className="mr-4 rounded-full bg-secondary-foreground text-secondary font-bold gap-4">
-                    Note
-                </Button>
-            </div>
+
             <section className="overflow-x-auto [&::-webkit-scrollbar]:hidden flex">
                 <CarouselProject />
             </section>
