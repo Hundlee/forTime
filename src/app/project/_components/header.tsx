@@ -1,25 +1,17 @@
-"use client";
-
-import { Project, Task, User } from "@prisma/client";
-import { MoveLeft, Search } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { Project } from "@prisma/client";
+import { Search } from "lucide-react";
 import Addtask from "../[id]/_components/add-task";
+import BackButton from "@/app/_components/backButton";
 
 interface HeaderProps {
     project: Project;
 }
 
 const Header = ({ project }: HeaderProps) => {
-    const router = useRouter();
-
-    const handleBack = () => {
-        router.push("/");
-    };
-
     return (
         <header className="bg-white shadow-xl  shadow-slate-300 rounded-b-3xl flex flex-col">
             <div className="flex justify-between items-center p-6">
-                <MoveLeft onClick={handleBack} />
+                <BackButton />
                 <div className="flex">
                     <input type="search" />
                     <label htmlFor="search">
