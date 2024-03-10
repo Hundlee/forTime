@@ -21,9 +21,10 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { saveProject } from "../_actions/save-project";
 import { useSession } from "next-auth/react";
+import { Loader2 } from "lucide-react";
+import { toast } from "@/app/_components/ui/use-toast";
 
 const AddProject = () => {
-    const [title, setTitle] = useState<string | undefined>();
     const [description, setDescription] = useState<string | undefined>();
     const [submitIsLoading, setSubmitIsLoading] = useState(false);
     const [sheetIsOpen, setSheetIsOpen] = useState(false);
@@ -43,6 +44,7 @@ const AddProject = () => {
     });
 
     const handleNewProject = async (values: z.infer<typeof formSchema>) => {
+        setSubmitIsLoading(true);
         if (!data?.user) {
             return;
         }
@@ -55,8 +57,13 @@ const AddProject = () => {
             });
 
             setSheetIsOpen(false);
+            toast({
+                description: "Project created successfully!",
+            });
         } catch (error) {
             console.error(error);
+        } finally {
+            setSubmitIsLoading(false);
         }
     };
 
@@ -90,9 +97,10 @@ const AddProject = () => {
                                             </FormLabel>
                                             <FormControl>
                                                 <Input
-                                                    placeholder="Task title"
+                                                    placeholder="Project title"
                                                     className="bg-transparent border-b border-white border-opacity-70 font-semibold text-white"
                                                     {...field}
+                                                    maxLength={30}
                                                 />
                                             </FormControl>
                                         </FormItem>
@@ -108,9 +116,9 @@ const AddProject = () => {
                                             </FormLabel>
                                             <FormControl className="">
                                                 <Textarea
-                                                    placeholder="Task description"
+                                                    placeholder="Project description"
                                                     className="resize-none bg-transparent  border-white border-opacity-70 font-semibold text-white"
-                                                    maxLength={30}
+                                                    maxLength={80}
                                                     {...field}
                                                     onChange={(e) =>
                                                         setDescription(
@@ -122,7 +130,16 @@ const AddProject = () => {
                                         </FormItem>
                                     )}
                                 />
-                                <Button type="submit">Submit</Button>
+                                <Button
+                                    type="submit"
+                                    className="w-full"
+                                    disabled={!description || submitIsLoading}
+                                >
+                                    {submitIsLoading && (
+                                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                    )}
+                                    Create Project
+                                </Button>
                             </form>
                         </Form>
                     </div>
