@@ -1,8 +1,6 @@
-import Navigator from "@/app/_components/navigator";
 import { db } from "@/app/_lib/prisma";
 import Header from "../_components/header";
-import TaskItem from "../_components/task";
-import { Task } from "@prisma/client";
+import TaskItem from "../../_components/task";
 
 interface ProjectDetailsPageProps {
     params: {

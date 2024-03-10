@@ -8,7 +8,7 @@ import { signIn } from "next-auth/react";
 import { toast } from "../_components/ui/use-toast";
 import LoginButton from "../(home)/_component/loginButton";
 import { MoveLeft } from "lucide-react";
-import BackButton from "./_components/backButton";
+import BackButton from "../_components/backButton";
 
 export default function AuthForm() {
     const form = useForm();
